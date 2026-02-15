@@ -1,0 +1,9 @@
+
+###> IDE START
+.idea/
+###< IDE END
+
+###> AI START
+.ai/
+.claude/
+###< AI END
