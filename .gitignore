@@ -4,6 +4,14 @@
 ###< IDE END
 
 ###> AI START
-.ai/
-.claude/
+.ai/config.toml
+.ai/settings.local.json
+.claude
+.codex
+.junie
+AGENTS.md
+CLAUDE.md
 ###< AI END
+
+## Tips & Tricks
+# git rm -r --cached path/to/directory

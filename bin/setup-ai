@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+# Directories
+ln -s .ai .junie
+ln -s .ai .claude
+ln -s .ai .codex
+
+# Files
+ln -s .ai/guidelines.md AGENTS.md
+ln -s .ai/guidelines.md CLAUDE.md
