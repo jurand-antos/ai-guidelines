@@ -4,9 +4,9 @@ A collection of reusable, portable instruction packs for AI agents. Each top-lev
 
 ## Categories
 
-| Category | Description |
-|----------|-------------|
-| `it-support/` | Role-based instructions for AI coding agents — covers design, implementation, testing, debugging, and task management |
+| Category | Description | Docs |
+|----------|-------------|------|
+| `it-support/` | Role-based instructions for AI coding agents | [docs/it-support.md](docs/it-support.md) |
 
 ## Quick Start
 
@@ -33,41 +33,18 @@ bin/install.sh it-support ./prompts          # custom directory name
 bin/install.sh it-support ../my-project/.ai  # relative path to another project
 ```
 
-The script copies the category's subdirectories (e.g., `roles/`, `flows/`, `meta/`, `prd/`) directly into the target. Running it again upgrades the files while preserving your `prd/prd.md`.
+The script copies the category's subdirectories directly into the target. Running it again upgrades the files while preserving your `prd/prd.md`.
 
 ## Repository Structure
 
 ```
 ai-guidelines/
-├── it-support/                         # Category: AI coding agent instructions
-│   ├── roles/                          #   Role-specific procedures
-│   │   ├── designer/                   #     Requirements and design
-│   │   ├── coder/                      #     Implementation
-│   │   ├── e2e-tester/                 #     End-to-end testing
-│   │   ├── debugger/                   #     Investigation and diagnosis
-│   │   └── manager/                    #     Task and workflow management
-│   ├── flows/                          #   Multi-role workflows
-│   ├── meta/                           #   Setup, discovery, audit tools
-│   └── prd/                            #   Task tracking templates
+├── it-support/          # Category: AI coding agent instructions
+├── docs/                # Category documentation
 ├── bin/
-│   └── install.sh                      # Category installer
+│   └── install.sh       # Category installer
+├── CHANGELOG.md
 └── README.md
-```
-
-## Manual Setup
-
-If you prefer to set things up yourself:
-
-```bash
-# 1. Copy the category contents into your target directory
-mkdir -p .ai
-cp -r it-support/roles/ .ai/roles/
-cp -r it-support/flows/ .ai/flows/
-cp -r it-support/meta/  .ai/meta/
-cp -r it-support/prd/   .ai/prd/
-
-# 2. Set up your agent entry point and project-specific files
-#    (varies by category — see the category's own docs for details)
 ```
 
 ## License
