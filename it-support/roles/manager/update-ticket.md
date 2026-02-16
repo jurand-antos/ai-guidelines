@@ -57,10 +57,11 @@ If the user modifies the text or transition — apply changes and re-confirm.
 Prefix each action line with a mark:
 
 | Mark | Meaning |
-|------|---------|
-| :check_mark: | Done |
-| :warning: | Done with caveats |
-| :cross_mark: | Blocked or not done |
+|--|---------|
+| ✅| Done |
+| ⚠️| Done with caveats |
+| ⛔| Blocked or not done |
+
 
 ### Actions Vocabulary
 
@@ -73,8 +74,8 @@ Prefix each action line with a mark:
 | Review | Code review needed or completed |
 | Approved | PR approved |
 | Merged & Deployed to {env} | Code merged and deployed |
-| QA {env} | QA needed or completed on environment |
 | QA {env} by author | Author-side QA on environment |
+| QA {env} | QA needed or completed on environment |
 
 ### Environments
 
@@ -93,8 +94,8 @@ Use environment names from `project/context.md`. Common conventions:
 Use when explaining an implementation decision, naming change, or deviation from the original ticket:
 
 ```
-Clarification:
-:check_mark: Renamed command from `sync:emails` to `email-template:sync` for consistency with existing commands.
+**Clarification:**
+Renamed command from `sync:emails` to `email-template:sync` for consistency with existing commands.
 ```
 
 ### 2. Requesting Clarification
@@ -102,8 +103,8 @@ Clarification:
 Use when asking the stakeholder a question. Consider transitioning to a feedback/blocked status if the question blocks further work:
 
 ```
-Clarification:
-:warning: The acceptance criteria mention "all templates" but the module only handles mail templates, not CMS pages. Please confirm scope.
+**⚠️Clarification Needed:**
+The acceptance criteria mention "all templates" but the module only handles mail templates, not CMS pages. Please confirm scope.
 ```
 
 ## Status Transitions
@@ -131,8 +132,8 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Transition**: READY → IN PROGRESS
 - **Comment**:
   ```
-  Status:
-  :check_mark: Work started
+  **Status:**
+  * ✅Work started
   ```
 
 ### Scenario 2 — Implementation + PR
@@ -142,11 +143,13 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Comment**:
   ```
   Status:
-  :check_mark: Implemented
-  :check_mark: PR: {pr-url}
+  * ✅Implemented
+  * ✅PR: {pr-url}
 
   Next Steps:
-  Review, Merge, QA Dev
+  * Review
+  * Merge & Deploy
+  * QA Dev by author
   ```
 
 ### Scenario 3 — Implementation + PR + Clarification
@@ -155,15 +158,17 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Transition**: IN PROGRESS → DEV QA
 - **Comment**:
   ```
-  Status:
-  :check_mark: Implemented
-  :check_mark: PR: {pr-url}
+  **Status:**
+  * ✅Implemented
+  * ✅PR: {pr-url}
 
-  Next Steps:
-  Review, Merge, QA Dev
+  **Next Steps:**
+  * Review
+  * Merge & Deploy
+  * QA Dev by author
 
-  Clarification:
-  :check_mark: {explanation of decision or deviation}
+  **Clarification:**
+  {explanation of decision or deviation}
   ```
 
 ### Scenario 4 — PR Approved
@@ -172,24 +177,27 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Transition**: none
 - **Comment**:
   ```
-  Status:
-  :check_mark: Approved
+  **Status:**
+  ✅Approved
 
-  Next Steps:
-  Merge, QA Dev
+  **Next Steps:**
+  * Merge & Deploy
+  * QA Dev by author
   ```
 
-### Scenario 5 — Merged to Dev
+### Scenario 5 — Merged to Dev & QA Dev by author
 
-- **Trigger**: user reports merge to Dev
+- **Trigger**: user reports merge to Dev & QA Dev by author
 - **Transition**: none
 - **Comment**:
   ```
-  Status:
-  :check_mark: Merged & Deployed to Dev
+  **Status:**
+  * ✅Merged & Deployed to Dev
+  * ✅QA Dev by author
 
-  Next Steps:
-  QA Dev by author
+  **Next Steps:**
+  * QA Dev
+  * Status: READY FOR STAGE
   ```
 
 ### Scenario 6 — Dev QA Passed
@@ -198,11 +206,11 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Transition**: DEV QA → READY FOR STAGE
 - **Comment**:
   ```
-  Status:
-  :check_mark: QA Dev
+  **Status:**
+  * ✅QA Dev
 
-  Next Steps:
-  Merge ({version}) & Deploy to Stage
+  **Next Steps:**
+  * Merge ({version}) & Deploy to Stage
   ```
 
 ### Scenario 7 — Deployed to Stage
@@ -211,11 +219,10 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Transition**: READY FOR STAGE → INTERNAL TESTING
 - **Comment**:
   ```
-  Status:
-  :check_mark: Merged ({version}) & Deployed to Stage
+  **Status:**
+  ✅Merged ({version}) & Deployed to Stage
 
-  Next Steps:
-  QA Stage
+  -- no next steps needed, we manage it via ticket statuses --
   ```
 
 ### Scenario 8 — Stage QA Passed
@@ -224,11 +231,10 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Transition**: INTERNAL TESTING → READY FOR TESTING
 - **Comment**:
   ```
-  Status:
-  :check_mark: QA Stage
+  **Status:**
+  * ✅QA Stage
 
-  Next Steps:
-  Ready for external testing
+  -- no next steps needed, we manage it via ticket statuses --
   ```
 
 ### Scenario 9 — Feedback Required
@@ -237,8 +243,8 @@ Each scenario combines: trigger, comment, and optional transition.
 - **Transition**: Any → FEEDBACK REQUIRED
 - **Comment**:
   ```
-  Clarification:
-  :warning: {question or blocker description}
+  **⚠️Clarification Needed:**
+  {question or blocker description}
   ```
 
 ### Scenario 10 — Custom
