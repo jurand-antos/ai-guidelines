@@ -1,12 +1,78 @@
 #!/usr/bin/env bash
 
-set -euo pipefail
+set -e
 
-# Directories
-ln -s .ai .junie
-ln -s .ai .claude
-ln -s .ai .codex
+ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$ROOT_DIR"
 
-# Files
-ln -s .ai/guidelines.md AGENTS.md
-ln -s .ai/guidelines.md CLAUDE.md
+usage() {
+  echo "Usage:"
+  echo "  bin/setup-ai codex [claude] [junie]"
+  echo ""
+  echo "Examples:"
+  echo "  bin/setup-ai junie"
+  echo "  bin/setup-ai codex claude"
+  exit 1
+}
+
+if [ "$#" -eq 0 ]; then
+  usage
+fi
+
+if [ ! -d ".ai" ]; then
+  echo "❌ .ai directory not found in project root"
+  exit 1
+fi
+
+AGENT_COUNT=0
+
+create_symlink() {
+  local source="$1"
+  local target="$2"
+
+  if [ -e "$target" ]; then
+    echo "⚠️  $target already exists — skipping"
+  else
+    ln -s "$source" "$target"
+    echo "✅ linked $target → $source"
+  fi
+}
+
+for target in "$@"; do
+  case "$target" in
+
+    junie)
+      echo "→ Setting up Junie"
+      create_symlink ".ai" ".junie"
+      AGENT_COUNT=$((AGENT_COUNT + 1))
+      ;;
+
+    codex)
+      echo "→ Setting up Codex"
+      create_symlink ".ai" ".codex"
+      create_symlink ".ai/guidelines.md" "AGENTS.md"
+      AGENT_COUNT=$((AGENT_COUNT + 1))
+      ;;
+
+    claude)
+      echo "→ Setting up Claude"
+      create_symlink ".ai" ".claude"
+      create_symlink ".ai/guidelines.md" "CLAUDE.md"
+      create_symlink ".ai/mcp/mcp.json" ".mcp.json"
+      AGENT_COUNT=$((AGENT_COUNT + 1))
+      ;;
+
+    *)
+      echo "❌ Unknown target: $target"
+      echo ""
+      usage
+      ;;
+  esac
+done
+
+if [ "$AGENT_COUNT" -eq 0 ]; then
+  echo "❌ At least one agent must be provided (codex/claude/junie)"
+  usage
+fi
+
+echo "✨ setup-ai finished"

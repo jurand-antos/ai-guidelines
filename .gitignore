@@ -1,9 +1,20 @@
 
 ###> IDE START
 .idea/
+.vscode/
+*.iml
 ###< IDE END
 
+###> OS START
+.DS_Store
+###< OS END
+
+###> PROJECT START
+var/
+###< PROJECT END
+
 ###> AI START
+.ai/mcp/
 .ai/config.toml
 .ai/settings.local.json
 .claude
